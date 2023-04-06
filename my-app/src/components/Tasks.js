@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import Task from './Task';
 import Modal from 'react-modal';
-import './Tasks.css';
+import '/Users/josephdelgiorgio/UniCoinsV3/my-app/src/components/Tasks.css';
 import sdgs from '/Users/josephdelgiorgio/UniCoinsV3/my-app/src/assets/sdgs.png'
 
 const customStyles = {
@@ -11,42 +11,42 @@ const customStyles = {
 
 Modal.setAppElement('#root');
 
-const Tasks = ({
-  tasks = [],
-  addTask,
-  completeTask,
-  addProjectManager,
-  addVolunteer,
-  mintTokens,
-  awardBadge,
-}) => {
-  // ... (same as before)
-
+const Tasks = () => {
+  const [tasks, setTasks] = useState([]);
   const [projectManagerAddress, setProjectManagerAddress] = useState('');
   const [volunteerAddress, setVolunteerAddress] = useState('');
   const [mintAmount, setMintAmount] = useState('');
   const [badgeDescription, setBadgeDescription] = useState('');
   const [hoursContributed, setHoursContributed] = useState('');
 
-  // ... (same as before)
+  const completeTask = (taskId) => {
+    setTasks((prevTasks) => {
+      return prevTasks.map((task) => {
+        if (task.id === taskId) {
+          return { ...task, completed: true };
+        }
+        return task;
+      });
+    });
+  };
 
-  const handleAddProjectManager = async () => {
-    await addProjectManager(projectManagerAddress);
+  const handleAddProjectManager = () => {
+    setTasks([...tasks, { id: tasks.length, projectManager: projectManagerAddress }]);
     setProjectManagerAddress('');
   };
 
-  const handleAddVolunteer = async () => {
-    await addVolunteer(volunteerAddress);
+  const handleAddVolunteer = () => {
+    setTasks([...tasks, { id: tasks.length, volunteer: volunteerAddress }]);
     setVolunteerAddress('');
   };
 
-  const handleMintTokens = async () => {
-    await mintTokens(volunteerAddress, mintAmount);
+  const handleMintTokens = () => {
+    setTasks([...tasks, { id: tasks.length, reward: mintAmount }]);
     setMintAmount('');
   };
 
-  const handleAwardBadge = async () => {
-    await awardBadge(volunteerAddress, badgeDescription, hoursContributed);
+  const handleAwardBadge = () => {
+    setTasks([...tasks, { id: tasks.length, description: badgeDescription, hoursContributed }]);
     setBadgeDescription('');
     setHoursContributed('');
   };
@@ -127,6 +127,3 @@ const Tasks = ({
 };
 
 export default Tasks;
-
-
-
