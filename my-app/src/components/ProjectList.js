@@ -1,15 +1,14 @@
 // ProjectList.js
 import React from 'react';
-import '/Users/josephdelgiorgio/UniCoinsV3/my-app/src/components/ProjectList.css';
 
-const ProjectList = ({ projects, web3 }) => {
+const ProjectList = ({ projects }) => {
   return (
-    <ul className="project-list">
+    <ul>
       {projects.map((project, index) => (
-        <li key={index} className="project-item">
+        <li key={index}>
           <h2>{project.title}</h2>
           <p>{project.description}</p>
-          <p>Budget: {web3.utils.fromWei(project.budget, 'ether')} ETH</p>
+          <p>Budget: {project.budget} ETH</p>
         </li>
       ))}
     </ul>
