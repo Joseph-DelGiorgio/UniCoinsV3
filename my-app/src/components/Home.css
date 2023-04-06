@@ -1,0 +1,110 @@
+/* Home.css */
+:root {
+  --primary-color: #89CFF0; /* Baby blue */
+  --secondary-color: #ffffff; /* White */
+  --light-color: #F2F2F2; /* Light gray */
+  --dark-color: #000001;
+  --text-color: #100101; /* black */
+  --accent-color: #1E88E5; /* Blue accent */
+}
+
+body {
+  color: var(--text-color);
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+.home-header {
+  min-height: 100vh;
+  text-align: center;
+  padding-top: 5rem;
+  padding-bottom: 5rem;
+  background-color: var(--primary-color);
+  color: var(--text-color);
+}
+
+.home-header h2 {
+  font-size: 2.5rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+
+.home-image {
+  max-width: 80%;
+  height: auto;
+  border-radius: 5px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  margin-bottom: 3rem;
+}
+
+/* New section styles */
+.home-about {
+  padding: 4rem 0;
+  background-color: var(--light-color);
+  text-align: center;
+  color: var(--text-color);
+  margin-top: -5rem; /* Pull the container up */
+  border-top-left-radius: 30px; /* Add border radius */
+  border-top-right-radius: 30px; /* Add border radius */
+}
+
+.home-about h3 {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 1.5rem;
+  color: var(--accent-color);
+}
+
+.home-about-text {
+  max-width: 800px;
+  margin: 0 auto;
+  color: #000000 !important;
+  line-height: 1.8; /* Increase line-height for better readability */
+  font-size: 1.1rem;
+  text-align: justify; /* Justify text for improved appearance */
+}
+
+.home-about p {
+  max-width: 800px;
+  margin: 0 auto;
+  color: #000000;
+}
+.left-image-container,
+.right-image-container {
+  position: fixed;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.left-image-container {
+  left: 0;
+}
+
+.right-image-container {
+  right: 0;
+}
+
+.side-image {
+  max-height: 35vh; /* Adjust the height as needed */
+  width: auto;
+  border-radius: 5px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  position: fixed; /* Add this line to make the image stick to the page */
+}
+
+.side-image-left {
+  left: 1rem; /* Adjust the distance from the left edge as needed */
+  top: 50%; /* Vertically centered */
+  transform: translateY(-50%);
+}
+
+.side-image-right {
+  right: 1rem; /* Adjust the distance from the right edge as needed */
+  top: 50%; /* Vertically centered */
+  transform: translateY(-50%);
+}
+
+/* ... */
+
+

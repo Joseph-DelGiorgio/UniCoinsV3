@@ -1,0 +1,22 @@
+/* ProjectList.css */
+.project-list {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .project-item {
+    background-color: var(--light-color);
+    padding: 1rem;
+    border-radius: 5px;
+    margin-bottom: 1rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .project-item h2 {
+    margin-bottom: 0.5rem;
+  }
+  
+  .project-item p {
+    margin-bottom: 0.25rem;
+  }
+  
