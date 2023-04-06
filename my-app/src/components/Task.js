@@ -2,13 +2,9 @@ import React from 'react';
 import './Task.css';
 import { useParams } from 'react-router-dom';
 
-const Task = ({ tasks, completeTask }) => {
-  const { id } = useParams();
-  const task = tasks[id];
-  const index = parseInt(id, 10);
-
+const Task = ({ task, completeTask }) => {
   const handleComplete = () => {
-    completeTask(index);
+    completeTask(task.id);
   };
 
   return (
@@ -28,5 +24,3 @@ const Task = ({ tasks, completeTask }) => {
 };
 
 export default Task;
-
-
