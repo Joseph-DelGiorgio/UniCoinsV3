@@ -6,12 +6,20 @@ import SearchBar from "./SearchBar";
 import ProjectCharts from "./ProjectCharts";
 import ProjectContext from "./ProjectContext";
 
+
 const Dashboard = () => {
-  const { projects: initialProjects } = useContext(ProjectContext);
+  const { projects: initialProjects, tasks: initialTasks } = useContext(ProjectContext);
   const [projects, setProjects] = useState([]);
   const [filteredProjects, setFilteredProjects] = useState([]);
+  const [tasks, setTasks] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [projectsPerPage] = useState(10);
+
+  useEffect(() => {
+    setProjects(initialProjects);
+    setFilteredProjects(initialProjects);
+    setTasks(initialTasks);
+  }, [initialProjects, initialTasks]);
 
   useEffect(() => {
     if (initialProjects.length > 0) {
@@ -70,4 +78,3 @@ const Dashboard = () => {
 };
 
 export default Dashboard;
-
