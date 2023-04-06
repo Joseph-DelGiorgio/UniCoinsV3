@@ -7,7 +7,7 @@ const ProjectPage = () => {
   const [projects, setProjects] = useState([]);
 
   // Initialize web3
-  const web3 = new Web3(Web3.givenProvider || 'http://localhost:8545');
+  const web3 = new Web3(Web3.givenProvider || 'http://localhost:3000');
 
   // Fetch projects here, you can use useEffect to fetch projects when the component mounts
   // For demonstration purposes, I'll use a static list of projects
