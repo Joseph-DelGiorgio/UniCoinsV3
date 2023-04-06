@@ -190,73 +190,68 @@ const App = () => {
           }}
         >
           <ProjectContext.Provider value={{ projects, setProjects }}>
-            <div className="App">
-              <AppNavbar
-                connectWallet={connectWallet}
-                disconnectWallet={disconnectWallet}
-                account={account}
-                connected={connected}
-                handleLogin={handleLogin}
-                handleLogout={handleLogout}
-              />
-              <Routes>
-                <Route path="/dashboard" element={<Dashboard />} />
-                <Route path="/" element={<Home web3={web3} account={account} UNCollaborationContract={UNCollaborationContract} UNBadgeContract={UNBadgeContract} />} />
-                <Route path="/tasks" element={<Tasks />} />
-                <Route
-                  path="/badges"
-                  element={
-                    <Badges
-                      provider={web3}
-                      volunteerAddress={account}
-                      badgeContract={UNBadgeContract}
-                      poapBadges={poapBadges}
-                    />
-                  }
+              <div className="App">
+                <AppNavbar
+                  connectWallet={connectWallet}
+                  disconnectWallet={disconnectWallet}
+                  account={account}
+                  connected={connected}
+                  handleLogin={handleLogin}
+                  handleLogout={handleLogout}
                 />
-                <Route
-                  path="/task/:id"
-                  element={
-                    <Task
-                      tasks={tasks}
-                      completeTask={completeTask}
-                    />
-                  }
-                />
-                <Route path="/projects" element={<Projects />} />
-                <Route
-                  path="/staking"
-                  element={
-                    <Staking
-                      stakeTokens={stakeTokens}
-                      unstakeTokens={unstakeTokens}
-                      balance={balance}
-                      stakingPosition={stakingPosition}
-                    />
-                  }
-                />
-                <Route path="/propose-project" element={<ProposeProject />} />
-                <Route
-                  path="/badges"
-                  element={
-                    <Badges
-                      provider={web3}
-                      volunteerAddress={account}
-                      badgeContract={UNBadgeContract}
-                    />
-                  }
-                />
-                <Route path="/moonpay" element={<MoonPay />} />
-            </Routes>
-          </div>
-        </ProjectContext.Provider>
-      </Web3Provider>
-    );
-  };
-
-export default App;
-
-    
-
-
-
+                <Routes>
+                  <Route path="/dashboard" element={<Dashboard />} />
+                  <Route path="/" element={<Home web3={web3} account={account} UNCollaborationContract={UNCollaborationContract} UNBadgeContract={UNBadgeContract} />} />
+                  <Route path="/tasks" element={<Tasks />} />
+                  <Route
+                    path="/badges"
+                    element={
+                      <Badges
+                        provider={web3}
+                        volunteerAddress={account}
+                        badgeContract={UNBadgeContract}
+                        poapBadges={poapBadges}
+                      />
+                    }
+                  />
+                  <Route
+                    path="/task/:id"
+                    element={
+                      <Task
+                        tasks={tasks}
+                        completeTask={completeTask}
+                      />
+                    }
+                  />
+                  <Route path="/projects" element={<Projects web3={web3} account={account} />} />
+                  <Route
+                    path="/staking"
+                    element={
+                      <Staking
+                        stakeTokens={stakeTokens}
+                        unstakeTokens={unstakeTokens}
+                        balance={balance}
+                        stakingPosition={stakingPosition}
+                      />
+                    }
+                  />
+                  <Route path="/propose-project" element={<ProposeProject />} />
+                  <Route
+                    path="/badges"
+                    element={
+                      <Badges
+                        provider={web3}
+                        volunteerAddress={account}
+                        badgeContract={UNBadgeContract}
+                      />
+                    }
+                  />
+                  <Route path="/moonpay" element={<MoonPay />} />
+                </Routes>
+              </div>
+          </ProjectContext.Provider>
+          </Web3Provider>
+          );
+        };
+        
+        export default App;
