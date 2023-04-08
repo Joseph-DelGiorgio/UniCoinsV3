@@ -1,19 +1,11 @@
 import React, { useState } from "react";
+import "/Users/josephdelgiorgio/UniCoinsV3/my-app/src/components/Staking.css";
+import Dashboard from "./Dashboard";
+import ProjectContext from "./ProjectContext";
 
-const Staking = ({
-  stakeTokens,
-  unstakeTokens,
-  balance,
-  stakingPosition,
-  createProposal,
-}) => {
+const Staking = ({ stakeTokens, unstakeTokens, balance, stakingPosition }) => {
   const [stakeAmount, setStakeAmount] = useState(0);
   const [unstakeAmount, setUnstakeAmount] = useState(0);
-  const [proposalData, setProposalData] = useState({
-    title: "",
-    description: "",
-    requiredUnicoins: 0,
-  });
 
   const handleStake = () => {
     stakeTokens(stakeAmount);
@@ -23,59 +15,38 @@ const Staking = ({
     unstakeTokens(unstakeAmount);
   };
 
-  const handleProposal = () => {
-    createProposal(proposalData);
-  };
+  // Replace with your initial projects and tasks data
+  const initialProjects = [];
+  const initialTasks = [];
 
   return (
-    <div>
-      <h2>Staking</h2>
+    <ProjectContext.Provider value={{ projects: initialProjects, tasks: initialTasks }}>
       <div>
-        <input
-          className="input-field"
-          type="number"
-          value={stakeAmount}
-          onChange={(e) => setStakeAmount(e.target.value)}
-        />
-        <button onClick={handleStake}>Stake</button>
+        <h2>Staking</h2>
+        <div>
+          <input
+            className="input-field"
+            type="number"
+            value={stakeAmount}
+            onChange={(e) => setStakeAmount(e.target.value)}
+          />
+          <button className="button" onClick={handleStake}>Stake</button>
+        </div>
+        <div>
+          <input
+            className="input-field"
+            type="number"
+            value={unstakeAmount}
+            onChange={(e) => setUnstakeAmount(e.target.value)}
+          />
+          <button className="button" onClick={handleUnstake}>Unstake</button>
+        </div>
+        <p>Your Staking Balance: {balance} Tokens</p>
+        <p>Your Staking Position: {stakingPosition} Tokens</p>
       </div>
-      <div>
-        <input
-          className="input-field"
-          type="number"
-          value={unstakeAmount}
-          onChange={(e) => setUnstakeAmount(e.target.value)}
-        />
-        <button onClick={handleUnstake}>Unstake</button>
-      </div>
-      <p>Your Staking Balance: {balance} Tokens</p>
-      <p>Your Staking Position: {stakingPosition} Tokens</p>
-      <h2>Create Proposal</h2>
-      <div>
-        <input
-          className="input-field"
-          type="text"
-          placeholder="Title"
-          value={proposalData.title}
-          onChange={(e) => setProposalData({ ...proposalData, title: e.target.value })}
-        />
-        <textarea
-          className="input-field description-container"
-          placeholder="Description"
-          value={proposalData.description}
-          onChange={(e) => setProposalData({ ...proposalData, description: e.target.value })}
-        />
-        <input
-          className="input-field"
-          type="number"
-          placeholder="Required UNicoins"
-          value={proposalData.requiredUnicoins}
-          onChange={(e) => setProposalData({ ...proposalData, requiredUnicoins: e.target.value })}
-        />
-        <button onClick={handleProposal}>Create Proposal</button>
-      </div>
-    </div>
-    );
-  };
-  
-  export default Staking;
+      <Dashboard />
+    </ProjectContext.Provider>
+  );
+};
+
+export default Staking;
