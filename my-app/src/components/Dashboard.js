@@ -18,22 +18,6 @@ const Dashboard = () => {
     setFilteredProjects(initialProjects);
   }, [initialProjects]);
 
-  useEffect(() => {
-    if (initialProjects.length > 0) {
-      setProjects(initialProjects);
-      setFilteredProjects(initialProjects);
-    } else {
-      // Fetch projects from your backend API or local data source
-      const fetchProjects = async () => {
-        const response = await fetch("your-api-url");
-        const data = await response.json();
-        setProjects(data);
-        setFilteredProjects(data);
-      };
-      fetchProjects();
-    }
-  }, [initialProjects]);
-
   const filterAndSortProjects = (filters, sortOptions) => {
     // Apply filters and sort options to the projects and set the filteredProjects state
   };
@@ -61,17 +45,18 @@ const Dashboard = () => {
       <div className="project-list">
         {currentProjects.map((project) => (
           <div key={project.id} className="project">
-            {/* ... */}
-          </div>
-        ))}
-      </div>
-      <Pagination
-        projectsPerPage={projectsPerPage}
-        totalProjects={filteredProjects.length}
-        paginate={paginate}
-      />
+          {/* Render project details here */}
+        </div>
+      ))}
     </div>
-  );
+    <Pagination
+      projectsPerPage={projectsPerPage}
+      totalProjects={filteredProjects.length}
+      paginate={paginate}
+    />
+  </div>
+);
 };
-
 export default Dashboard;
+         
+
