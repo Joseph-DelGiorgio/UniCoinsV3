@@ -1,16 +1,24 @@
-import React, { useState, useEffect } from 'react';
-import ProjectList from '/Users/josephdelgiorgio/UniCoinsV3/my-app/src/components/ProjectList.js';
-import ProposeProject from '/Users/josephdelgiorgio/UniCoinsV3/my-app/src/components/ProposeProject.js';
-import '/Users/josephdelgiorgio/UniCoinsV3/my-app/src/components/Projects.css'
+import React, { useState, useContext } from 'react';
+import ProjectList from './ProjectList';
+import ProposeProject from './ProposeProject';
+import './Projects.css';
+import ProjectContext from './ProjectContext';
+
 const Projects = ({ web3 }) => {
   const [projects, setProjects] = useState([]);
 
+  const addProject = (project) => {
+    setProjects([...projects, project]);
+  };
+
   return (
-    <div className="container">
-      <h1>Projects</h1>
-      <ProjectList projects={projects} web3={web3} />
-      <ProposeProject web3={web3} setProjects={setProjects} />
-    </div>
+    <ProjectContext.Provider value={{ projects, addProject }}>
+      <div className="container">
+        <h1>Projects</h1>
+        <ProjectList projects={projects} web3={web3} />
+        <ProposeProject web3={web3} addProject={addProject} />
+      </div>
+    </ProjectContext.Provider>
   );
 };
 
