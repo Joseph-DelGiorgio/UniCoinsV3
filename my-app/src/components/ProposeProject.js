@@ -1,25 +1,27 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
+import '/Users/josephdelgiorgio/UniCoinsV3/my-app/src/components/ProposeProject.css';
+import ProjectContext from '/Users/josephdelgiorgio/UniCoinsV3/my-app/src/components/ProjectContext.js';
 
-const ProposeProject = ({ web3, account, contract, updateProjects }) => {
+const ProposeProject = ({ web3 }) => {
+  const { addProject } = useContext(ProjectContext);
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [budget, setBudget] = useState('');
 
-  const onSubmit = async (e) => {
+  const onSubmit = (e) => {
     e.preventDefault();
 
-    if (contract) {
-      await contract.methods
-        .proposeProject(title, description, web3.utils.toWei(budget, 'ether'))
-        .send({ from: account });
-    }
+    const newProject = {
+      title,
+      description,
+      budget: parseFloat(budget).toFixed(2), // Store budget as a string with 2 decimal places
+    };
+
+    addProject(newProject);
 
     setTitle('');
     setDescription('');
     setBudget('');
-
-    // Call the updateProjects function to refresh the project list
-    updateProjects();
   };
 
   return (
