@@ -1,7 +1,6 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import Web3 from 'web3';
 import UNCollaborationABI from '../abis/UNCollaboration.json';
-import UNBadgeABI from '../abis/UNBadge.json';
 
 // Create Web3 context
 export const Web3Context = createContext();
@@ -16,7 +15,6 @@ export function Web3Provider({ children }) {
   const [web3, setWeb3] = useState();
   const [account, setAccount] = useState();
   const [contract, setContract] = useState();
-  const [badgeContract, setBadgeContract] = useState();
 
   // Initialize Web3
   useEffect(() => {
@@ -52,15 +50,6 @@ export function Web3Provider({ children }) {
       } else {
         alert('UNCollaboration contract not deployed on the connected network.');
       }
-
-      // Load UNBadge contract
-      const badgeContractData = UNBadgeABI.networks[networkId];
-      if (badgeContractData) {
-        const badgeContractInstance = new web3.eth.Contract(UNBadgeABI.abi, badgeContractData.address);
-        setBadgeContract(badgeContractInstance);
-      } else {
-        alert('UNBadge contract not deployed on the connected network.');
-      }
     };
 
     loadBlockchainData();
@@ -71,10 +60,8 @@ export function Web3Provider({ children }) {
     web3,
     account,
     contract,
-    badgeContract,
   };
 
   // Provide the context value to children components
   return <Web3Context.Provider value={value}>{children}</Web3Context.Provider>;
 }
-
