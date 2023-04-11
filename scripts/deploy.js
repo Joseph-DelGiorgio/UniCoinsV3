@@ -1,25 +1,23 @@
-const hre = require("hardhat");
+const { ethers } = require("hardhat");
 
 async function main() {
-  // Deploy UNBadge contract
-  const UNBadge = await hre.ethers.getContractFactory("UNBadge");
-  const unBadge = await UNBadge.deploy();
-  await unBadge.deployed();
+  const [deployer] = await ethers.getSigners();
 
-  console.log(`UNBadge deployed to ${unBadge.address}`);
+  console.log("Deploying the contract with the account:", deployer.address);
 
-  // Deploy UNCollaboration contract
-  const UNCollaboration = await hre.ethers.getContractFactory("UNCollaboration");
-  const unCollaboration = await UNCollaboration.deploy(unBadge.address);
-  await unCollaboration.deployed();
+  const UNCollaboration = await ethers.getContractFactory("UNCollaboration");
+  const unCollaboration = await UNCollaboration.deploy();
 
-  console.log(`UNCollaboration deployed to ${unCollaboration.address}`);
+  console.log("UNCollaboration contract address:", unCollaboration.address);
 }
 
-main().catch((error) => {
-  console.error(error);
-  process.exitCode = 1;
-});
+main()
+  .then(() => process.exit(0))
+  .catch((error) => {
+    console.error(error);
+    process.exit(1);
+  });
+
 
 /* 
 npm install --save-dev @openzeppelin/contracts
