@@ -468,7 +468,7 @@
     "start": "react-scripts start",
     "test": "react-scripts test"
   },
-  "author": "joseph Del Giorgio",
+  "author": "Joseph Del Giorgio",
   "license": "UNLICENSED",
   "browserslist": {
     "production": [
