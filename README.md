@@ -11,7 +11,7 @@ Token minting: Project managers can mint new UNC tokens and allocate them to spe
 Staking: Volunteers can stake UNC tokens to propose new projects, and project managers can validate and manage proposed projects.
 Donations: Donors can donate UNC to support new projects.
 Time stable coin: The contract includes a data strategy to optimize UNC circulation and ensure the time value of UNC is maintained, making it similar to a time-stable coin.
-Requirements
+Requirements:
 The following tools and libraries are required to use the UNCollaboration smart contract:
 
 Solidity compiler version 0.8.0
