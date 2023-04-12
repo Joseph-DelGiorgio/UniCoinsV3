@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import Web3 from 'web3';
-import UNCollaborationABI from '../abis/UNCollaboration.json';
+import UNCollaborationABI from '/Users/josephdelgiorgio/UniCoinsV3/my-app/src/abis/UNCollaboration.json';
 
 // Create Web3 context
 export const Web3Context = createContext();
@@ -43,12 +43,16 @@ export function Web3Provider({ children }) {
       const networkId = await web3.eth.net.getId();
 
       // Load UNCollaboration contract
-      const collaborationContractData = UNCollaborationABI.networks[networkId];
-      if (collaborationContractData) {
-        const contractInstance = new web3.eth.Contract(UNCollaborationABI.abi, collaborationContractData.address);
-        setContract(contractInstance);
+      if (UNCollaborationABI && UNCollaborationABI.networks) {
+        const collaborationContractData = UNCollaborationABI.networks[networkId];
+        if (collaborationContractData) {
+          const contractInstance = new web3.eth.Contract(UNCollaborationABI.abi, collaborationContractData.address);
+          setContract(contractInstance);
+        } else {
+          alert('UNCollaboration contract not deployed on the connected network.');
+        }
       } else {
-        alert('UNCollaboration contract not deployed on the connected network.');
+        console.error("UNCollaborationABI or UNCollaborationABI.networks is not defined");
       }
     };
 
