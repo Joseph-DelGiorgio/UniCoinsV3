@@ -207,4 +207,21 @@ function validateProposal(uint256 proposalId, bool isValid) public {
         return totalDonated.mul(1 ether).div(totalSupply());
     }
 
+    function stakeTokens(uint256 amount) public {
+        require(balanceOf(msg.sender) >= amount, "Insufficient balance");
+        _transfer(msg.sender, address(this), amount);
+        stakingPositions[msg.sender].push(StakingPosition(msg.sender, amount, block.timestamp, 0));
+    }
+
+    function unstakeTokens(uint256 positionIndex) public {
+        StakingPosition storage position = stakingPositions[msg.sender][positionIndex];
+        require(position.endTime == 0, "Tokens are already unstaked");
+        _transfer(address(this), msg.sender, position.amount);
+        position.endTime = block.timestamp;
+    }
+
+    function stakingPositionOf(address staker, uint256 positionIndex) public view returns (uint256) {
+        return stakingPositions[staker][positionIndex].amount;
+    }
+
 }
