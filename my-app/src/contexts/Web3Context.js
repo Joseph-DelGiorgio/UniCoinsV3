@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import Web3 from 'web3';
-import UNCollaborationABI from '/Users/josephdelgiorgio/UniCoinsV3/my-app/src/abis/UNCollaboration.json';
+import UNCollaborationABI_JSON from '../abis/UNCollaboration.json';
+
 
 // Create Web3 context
 export const Web3Context = createContext();
@@ -24,48 +25,61 @@ export function Web3Provider({ children }) {
         await window.ethereum.request({ method: 'eth_requestAccounts' });
         setWeb3(web3Instance);
       } else {
-        alert('Please install MetaMask to use this app.');
-      }
-    };
-    initWeb3();
-  }, []);
+        alert('Please install MetaMask to use this app.');  }
+      };
+      initWeb3();
+    }, []);
 
-  // Load blockchain data
-  useEffect(() => {
+    // Load blockchain data
+    useEffect(() => {
     const loadBlockchainData = async () => {
-      if (!web3) return;
-
+    if (!web3) return;
       // Get accounts
-      const accounts = await web3.eth.getAccounts();
-      setAccount(accounts[0]);
+  const accounts = await web3.eth.getAccounts();
+  setAccount(accounts[0]);
 
-      // Get network ID
-      const networkId = await web3.eth.net.getId();
+  // Get network ID
+  const networkId = await web3.eth.net.getId();
 
-      // Load UNCollaboration contract
-      if (UNCollaborationABI && UNCollaborationABI.networks) {
-        const collaborationContractData = UNCollaborationABI.networks[networkId];
-        if (collaborationContractData) {
-          const contractInstance = new web3.eth.Contract(UNCollaborationABI.abi, collaborationContractData.address);
-          setContract(contractInstance);
-        } else {
-          alert('UNCollaboration contract not deployed on the connected network.');
-        }
-      } else {
-        console.error("UNCollaborationABI or UNCollaborationABI.networks is not defined");
-      }
-    };
+  // Load UNCollaboration contract
+  if (UNCollaborationABI && UNCollaborationABI.networks) {
+    const collaborationContractData = UNCollaborationABI.networks[networkId];
+    if (collaborationContractData) {
+      const contractInstance = new web3.eth.Contract(UNCollaborationABI.abi, collaborationContractData.address);
+      setContract(contractInstance);
+    } else {
+      alert('UNCollaboration contract not deployed on the connected network.');
+    }
+  } else {
+    console.error("UNCollaborationABI or UNCollaborationABI.networks is not defined");
+  }
+};
 
-    loadBlockchainData();
-  }, [web3]);
+loadBlockchainData();
+}, [web3]);
 
-  // Prepare value for the Web3 context
-  const value = {
-    web3,
-    account,
-    contract,
-  };
+// Listen for account changes
+useEffect(() => {
+if (!window.ethereum) return;
 
-  // Provide the context value to children components
-  return <Web3Context.Provider value={value}>{children}</Web3Context.Provider>;
+const handleAccountsChanged = async (accounts) => {
+  setAccount(accounts[0]);
+};
+
+window.ethereum.on('accountsChanged', handleAccountsChanged);
+
+return () => {
+  window.ethereum.removeListener('accountsChanged', handleAccountsChanged);
+};
+}, []);
+
+// Prepare value for the Web3 context
+const value = {
+web3,
+account,
+contract,
+};
+
+// Provide the context value to children components
+return <Web3Context.Provider value={value}>{children}</Web3Context.Provider>;
 }
