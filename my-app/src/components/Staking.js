@@ -1,12 +1,14 @@
 import React, { useState, useContext } from "react";
-import { Web3Context } from "/Users/josephdelgiorgio/UniCoinsV3/my-app/src/contexts/Web3Context.js";
+import { Web3Context } from "../contexts/Web3Context.js";
 import "/Users/josephdelgiorgio/UniCoinsV3/my-app/src/components/Staking.css";
 import Dashboard from "./Dashboard";
-import ProjectContext from "/Users/josephdelgiorgio/UniCoinsV3/my-app/src/components/ProjectContext.js";
-import UNCollaborationABI from '/Users/josephdelgiorgio/UniCoinsV3/my-app/src/abis/UNCollaboration.json';
+import ProjectContext from "./ProjectContext.js";
+import UNCollaborationABI_JSON from '../abis/UNCollaboration.json';
+
+//import { Contract } from "@ethersproject/contracts";
 
 const Staking = ({ balance, stakingPosition }) => {
-  const { UNCollaborationContract, account } = useContext(Web3Context);
+  const { UNCollaborationContract, account, web3 } = useContext(Web3Context);
 
   const [stakeAmount, setStakeAmount] = useState(0);
   const [unstakeAmount, setUnstakeAmount] = useState(0);
@@ -27,7 +29,6 @@ const Staking = ({ balance, stakingPosition }) => {
       console.error("Error while staking:", error);
     }
   };
-  
 
   const handleUnstake = async () => {
     try {
