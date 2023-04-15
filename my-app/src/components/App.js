@@ -15,7 +15,7 @@ import './Navigation.css';
 import Dashboard from './Dashboard';
 import ProjectContext from './ProjectContext';
 import MoonPay from './MoonPay';
-import UNCollaborationABI_JSON from '../abis/UNCollaboration.json';
+import UNCollaborationABI from '../abis/UNCollaboration.json';
 import Badges from "./Badges";
 
 const UNCollaborationAddress = '0xc91844c59e730e5a3cc89ed2a2d42d81238a0062';
@@ -35,7 +35,7 @@ const App = () => {
     const initWeb3 = async () => {
       if (window.ethereum) {
         const web3Instance = new Web3(window.ethereum);
-        setWeb3(web3Instance);
+        // Removed the setWeb3(web3Instance) line
       } else {
         console.log('Please install MetaMask!');
       }
@@ -51,6 +51,7 @@ const App = () => {
         setAccount(accounts[0]);
 
         const UNCollaboration = new web3.eth.Contract(UNCollaborationABI.abi, UNCollaborationAddress);
+
         setCollabContract(UNCollaboration);
       }
     };
@@ -153,7 +154,7 @@ const logout = async () => {
 return (
   <Web3Provider
     value={{
-      web3: web3 || null,
+      web3,
       appAccount,
       contract: UNCollaborationContract,
       addTask,
