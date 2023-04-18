@@ -7,7 +7,6 @@ import Projects from './Projects';
 import Staking from './Staking';
 import ProposeProject from './ProposeProject';
 import React, { useState, useEffect } from 'react';
-import Web3 from 'web3';
 import Home from './Home';
 import './Styles.css';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
@@ -15,7 +14,7 @@ import './Navigation.css';
 import Dashboard from './Dashboard';
 import ProjectContext from './ProjectContext';
 import MoonPay from './MoonPay';
-import UNCollaborationABI from '../abis/UNCollaboration.json';
+import UNCollaborationABI from '/Users/josephdelgiorgio/UniCoinsV3/my-app/src/abis/UNCollaboration.json';
 import Badges from "./Badges";
 
 
