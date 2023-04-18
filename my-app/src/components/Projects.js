@@ -1,11 +1,13 @@
-import React, { useState, useContext } from 'react';
-import ProjectList from './ProjectList';
-import ProposeProject from './ProposeProject';
-import './Projects.css';
-import ProjectContext from './ProjectContext';
+import React, { useState, useEffect } from "react";
+import ProjectList from "./ProjectList";
+import ProposeProject from "./ProposeProject";
+import "./Projects.css";
+import ProjectContext from "./ProjectContext";
+import { useWeb3 } from '/Users/josephdelgiorgio/UniCoinsV3/my-app/src/contexts/Web3Context.js';
 
-const Projects = ({ web3 }) => {
-  const [projects, setProjects] = useState([]);
+const Projects = () => {
+  const { web3, contract, account } = useWeb3();
+  const [projects, setProjects] = useState([]); // Add this line
 
   const addProject = (project) => {
     setProjects([...projects, project]);
@@ -23,3 +25,4 @@ const Projects = ({ web3 }) => {
 };
 
 export default Projects;
+
