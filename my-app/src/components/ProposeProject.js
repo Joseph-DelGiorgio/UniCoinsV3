@@ -1,28 +1,50 @@
 import React, { useState, useContext } from 'react';
-import '/Users/josephdelgiorgio/UniCoinsV3/my-app/src/components/ProposeProject.css';
-import ProjectContext from '/Users/josephdelgiorgio/UniCoinsV3/my-app/src/components/ProjectContext.js';
+import './ProposeProject.css';
+import ProjectContext from './ProjectContext';
+import { Web3Context } from '../contexts/Web3Context';
 
-const ProposeProject = ({ web3 }) => {
+
+const ProposeProject = () => {
+  const { web3, contract, account } = useContext(Web3Context);
   const { addProject } = useContext(ProjectContext);
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [budget, setBudget] = useState('');
 
-  const onSubmit = (e) => {
-    e.preventDefault();
-
+  const onSubmit = async (event) => {
+    event.preventDefault();
+  
+    if (!web3) {
+      alert('Web3 is not initialized. Please check your MetaMask connection.');
+      return;
+    }
+  
+    if (!contract) {
+      alert('Contract is not initialized. Please check your configuration.');
+      return;
+    }
+  
     const newProject = {
       title,
       description,
-      budget: parseFloat(budget).toFixed(2), // Store budget as a string with 2 decimal places
+      budget: parseFloat(budget).toFixed(2),
     };
-
+  
+    const budgetWei = web3.utils.toWei(budget, 'ether');
+    try {
+      await contract.methods.proposeProject(description, budgetWei).send({ from: account });
+    } catch (error) {
+      console.error('Error sending transaction:', error);
+      return;
+    }
+  
     addProject(newProject);
-
+  
     setTitle('');
     setDescription('');
     setBudget('');
   };
+  
 
   return (
     <div className="container">
