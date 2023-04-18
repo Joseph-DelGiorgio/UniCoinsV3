@@ -3,7 +3,8 @@ import { Web3Context } from "../contexts/Web3Context.js";
 import "/Users/josephdelgiorgio/UniCoinsV3/my-app/src/components/Staking.css";
 import Dashboard from "./Dashboard";
 import ProjectContext from "./ProjectContext.js";
-import UNCollaborationABI_JSON from '../abis/UNCollaboration.json';
+import UNCollaborationABI_JSON from '/Users/josephdelgiorgio/UniCoinsV3/my-app/src/abis/UNCollaboration.json';
+
 
 //import { Contract } from "@ethersproject/contracts";
 
