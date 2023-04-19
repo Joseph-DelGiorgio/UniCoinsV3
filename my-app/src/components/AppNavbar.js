@@ -5,6 +5,7 @@ import './AppNavbar.css';
 const AppNavbar = ({ connectWallet, disconnectWallet, account, connected, handleLogin, handleLogout }) => {
   const [balance, setBalance] = useState(0);
   const [role, setRole] = useState('Unknown');
+  const [isConnected, setIsConnected] = useState(false);
 
   useEffect(() => {
     const fetchBalanceAndRole = async () => {
@@ -13,6 +14,16 @@ const AppNavbar = ({ connectWallet, disconnectWallet, account, connected, handle
 
     fetchBalanceAndRole();
   }, [account]);
+
+  const handleConnectWallet = async () => {
+    await connectWallet();
+    setIsConnected(true);
+  };
+
+  const handleDisconnectWallet = () => {
+    disconnectWallet();
+    setIsConnected(false);
+  };
 
   return (
     <Navbar expand="lg" className="app-navbar">
@@ -29,17 +40,19 @@ const AppNavbar = ({ connectWallet, disconnectWallet, account, connected, handle
             <Nav.Link href="/moonpay">MoonPay</Nav.Link>
           </Nav>
           <div>
-            {account ? (
+            {isConnected ? (
               <>
-                <Navbar.Text className="ml-3">
-                  {account.slice(0, 6)}...{account.slice(-4)}
-                </Navbar.Text>
-                <Button className="disconnect-wallet-btn" onClick={disconnectWallet}>
+                {account && (
+                  <Navbar.Text className="ml-3">
+                    {account.slice(0, 6)}...{account.slice(-4)}
+                  </Navbar.Text>
+                )}
+                <Button className="disconnect-wallet-btn" onClick={handleDisconnectWallet}>
                   Disconnect Wallet
                 </Button>
               </>
             ) : (
-              <Button className="connect-wallet-btn" onClick={connectWallet}>Connect Wallet</Button>
+              <Button className="connect-wallet-btn" onClick={handleConnectWallet}>Connect Wallet</Button>
             )}
 
             {connected ? (
@@ -63,6 +76,3 @@ const AppNavbar = ({ connectWallet, disconnectWallet, account, connected, handle
 }
 
 export default AppNavbar;
-
-
-
