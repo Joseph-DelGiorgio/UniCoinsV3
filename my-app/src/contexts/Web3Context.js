@@ -4,7 +4,6 @@ import UNCollaborationArtifact from '/Users/josephdelgiorgio/UniCoinsV3/my-app/s
 
 // Create Web3 context
 export const Web3Context = createContext();
-const contract = new web3.eth.Contract(UNCollaborationArtifact.abi, networkData.address);
 
 // Custom hook for easier access to the Web3 context
 export function useWeb3() {
@@ -39,33 +38,13 @@ export function Web3Provider({ children }) {
       if (!web3) return;
       setLoading(true); // Set loading state to true
 
-      // Get accounts
-      const accounts = await web3.eth.getAccounts();
-      setAccount(accounts[0]);
+      // ...
 
-      // Get network ID
-      const networkId = await web3.eth.net.getId();
-
-      // Load UNCollaboration contract
-      if (UNCollaborationArtifact.abi && UNCollaborationArtifact.networks) {
-        const collaborationContractData = UNCollaborationArtifact.networks[networkId];
-        if (collaborationContractData) {
-          const contractInstance = new web3.eth.Contract(UNCollaborationArtifact.abi, collaborationContractData.address);
-          setContract(contractInstance);
-        } else {
-          alert('UNCollaboration contract not deployed on the connected network.');
-        }
-      } else {
-        console.error("UNCollaborationArtifact.abi or UNCollaborationArtifact.networks is not defined");
-      }
-
-      setLoading(false); // Set loading state to false
+      setLoading(false); 
     };
-
     loadBlockchainData();
   }, [web3]);
-  
-  // Fetch volunteer KPIs
+
   useEffect(() => {
     const fetchVolunteerKPIs = async () => {
       if (!contract) return;
@@ -84,41 +63,69 @@ export function Web3Provider({ children }) {
           managerRatings,
           otherMetrics,
         });
-
-        setLoading(false); // Set loading state to false
+    
+        setLoading(false); 
       } catch (error) {
         console.error('Error fetching volunteer KPIs:', error);
-        setLoading(false); // Set loading state to false
+        setLoading(false);
       }
     };
-
     fetchVolunteerKPIs();
   }, [contract, account]);
 
   // Listen for account changes
   useEffect(() => {
     if (!window.ethereum) return;
-
     const handleAccountsChanged = async (accounts) => {
       setAccount(accounts[0]);
     };
     window.ethereum.on('accountsChanged', handleAccountsChanged);
-    
+  
     return () => {
       window.ethereum.removeListener('accountsChanged', handleAccountsChanged);
     };
-    
+
   }, []);
 
-  // Prepare value for the Web3 context
-  const value = {
+  // Initialize contract
+  useEffect(() => {
+  const initContract = async () => {
+  if (!web3) return;
+  const networkId = await web3.eth.net.getId();
+  const networkData = UNCollaborationArtifact.networks[networkId];
+  if (!networkData) {
+  alert('UNCollaboration contract not deployed to detected network.');
+  return;
+  }
+  const uncollaborationContract = new web3.eth.Contract(
+  UNCollaborationArtifact.abi,
+  networkData.address
+  );
+  setContract(uncollaborationContract);
+  };
+  initContract();
+  }, [web3]);
+  
+  useEffect(() => {
+  if (web3 && account && contract) {
+  setLoading(false);
+  } else {
+  setLoading(true);
+  }
+  }, [web3, account, contract]);
+  
+  return (
+  <Web3Context.Provider
+  value={{
   web3,
   account,
   contract,
-  volunteerKPIs, // Include volunteerKPIs in the context value
+  volunteerKPIs,
   loading,
-  };
-  
-  // Provide the context value to children components
-  return <Web3Context.Provider value={value}>{children}</Web3Context.Provider>;
+  }}
+  >
+  {children}
+  </Web3Context.Provider>
+  );
   }
+    
