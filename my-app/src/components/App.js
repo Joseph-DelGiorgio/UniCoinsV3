@@ -16,6 +16,7 @@ import ProjectContext from './ProjectContext';
 import MoonPay from './MoonPay';
 import UNCollaborationABI from '/Users/josephdelgiorgio/UniCoinsV3/my-app/src/abis/UNCollaboration.json';
 import Badges from "./Badges";
+import Web3 from 'web3';
 
 
 
@@ -186,7 +187,7 @@ const App = () => {
           <Routes>
             {/* Pass volunteerKPIs to the desired component as a prop */}
             <Route path="/dashboard" element={<Dashboard volunteerKPIs={volunteerKPIs} />} />
-            <Route path="/" element={<Home web3={web3} account={appAccount} UNCollaborationContract={UNCollaborationContract} />} />
+            <Route path="/" element={<Home web3={web3} account={appAccount} UNCollaborationContract={UNCollaborationContract} connectWallet={connectWallet} />} />
             <Route path="/tasks" element={<Tasks />} />
             <Route path="/task/:id" element={<Task tasks={tasks} completeTask={completeTask} />} />
             <Route path="/projects" element={<Projects web3={web3} account={appAccount} />} />
