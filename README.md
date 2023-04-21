@@ -25,18 +25,28 @@ npm install
 Start the development server:
 npm start
 
-Components
+Components:
 AppNavbar: Navigation bar for the app
+
 Tasks: Displays the list of tasks available for volunteers
+
 Task: Displays the details of a single task
+
 Projects: Displays the list of projects available for organizations
+
 Staking: Allows users to stake and unstake tokens
+
 ProposeProject: Allows organizations to propose new projects
+
 Home: Home page of the app
+
 Dashboard: Displays volunteer KPIs (Key Performance Indicators)
+
 Badges: Displays POAP badges for the volunteer
+
 MoonPay: Integrates MoonPay for purchasing cryptocurrencies
-Contexts
+
+Contexts:
 Web3Context: Provides web3 instance, contract instance, and functions for interacting with the smart contract
 ProjectContext: Provides project management-related functionality
 
