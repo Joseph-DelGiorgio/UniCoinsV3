@@ -1,4 +1,5 @@
 UniCoins V3 is a decentralized collaboration platform for volunteers and non-profit organizations built on the Ethereum blockchain. 
+
 It enables volunteers to earn rewards by completing tasks and contributing to projects, and allows organizations to propose and manage projects.
  
 Features:
