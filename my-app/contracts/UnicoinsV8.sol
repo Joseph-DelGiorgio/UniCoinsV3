@@ -1,6 +1,5 @@
 //This is the new version of the Unicoins smart contract, without the Badge (Erc721) Functionality, as we are using POAPs instead.
 
-
 // SPDX-License-Identifier: UNLICENSED
 pragma solidity ^0.8.0;
 
@@ -139,6 +138,20 @@ function proposeProject(string memory projectDescription, uint256 stakingAmount)
 
     emit ProjectProposalAdded(proposalId, msg.sender, projectDescription, stakingAmount);
 }
+function getTaskCount() public view returns (uint256) {
+    return tasks.length;
+}
+function getCompletedTasks(address volunteer) public view returns (uint256) {
+    uint256 completedTaskCount = 0;
+    for (uint256 i = 0; i < tasks.length; i++) {
+        CollaborationTask storage task = tasks[i];
+        if (task.volunteer == volunteer && task.completed) {
+            completedTaskCount++;
+        }
+    }
+    return completedTaskCount;
+}
+
 
 function validateProposal(uint256 proposalId, bool isValid) public {
     require(projectManagers[msg.sender], "Only project managers can validate proposals");
