@@ -3,16 +3,12 @@ import './Badges.css';
 
 const Badges = ({ provider, volunteerAddress }) => {
   const [badges, setBadges] = useState([]);
+  const [poapBadges, setPoapBadges] = useState([]);
   const [filter, setFilter] = useState("all");
   const [searchTerm, setSearchTerm] = useState("");
-  
+
   const POAP_API_URL = 'https://api.poap.xyz/actions/scan/';
   const GITPOAP_EVENT_ID = ''; // Put your GitPOAP event ID here
-
-  const Badges = ({ provider, volunteerAddress, badgeContract, poapBadges }) => {
-    // ...
-  };
-  
 
   useEffect(() => {
     const fetchBadges = async () => {
@@ -24,7 +20,7 @@ const Badges = ({ provider, volunteerAddress }) => {
         const poapBadges = await response.json();
 
         // Set fetched POAP badges
-        setBadges(poapBadges);
+        setPoapBadges(poapBadges);
       } catch (error) {
         console.error('Error fetching POAP badges:', error);
       }
@@ -95,31 +91,29 @@ const Badges = ({ provider, volunteerAddress }) => {
         <div className="badge-container">
           {searchedBadges.map((badge, index) => (
             <div key={index} className={`badge-card ${mapBadgeToColor(badge.hoursContributed)}`}>
-
-<img src="https://via.placeholder.com/100" alt="Badge" />
-<div className="poap-badge-container">
-  {poapBadges.map((badge, index) => (
-    <div className="poap-badge-card" key={index}>
-      <img src={badge.imageUrl} alt="POAP badge" />
-      <h3 className="poap-badge-name">{badge.name}</h3>
-      <p className="poap-badge-description">{badge.description}</p>
-      <p className="poap-badge-date">Event Date: {badge.eventDate}</p>
+              <img src="https://via.placeholder.com/100" alt="Badge" />
+              <div className="badge-tooltip">
+                Additional information about the {badge.badgeDescription} badge
+              </div>
+              <div className="badge-name">{badge.badgeDescription}</div>
+              <div className="badge-description">Description: {badge.badgeDescription}</div>
+              <div className="badge-hours">Hours Contributed: {badge.hoursContributed}</div>
+            </div>
+          ))}
+        </div>
+      )}
+      <div className="poap-badge-container">
+        {poapBadges.map((badge, index) => (
+          <div className="poap-badge-card" key={index}>
+            <img src={badge.image_url} alt="POAP badge" />
+            <h3 className="poap-badge-name">{badge.name}</h3>
+            <p className="poap-badge-description">{badge.description}</p>
+            <p className="poap-badge-date">Event Date: {badge.event_date}</p>
+          </div>
+        ))}
+      </div>
     </div>
-  ))}
-</div>
-
-<div className="badge-tooltip">
-Additional information about the {badge.badgeDescription} badge
-</div>
-<div className="badge-name">{badge.badgeDescription}</div>
-<div className="badge-description">Description: {badge.badgeDescription}</div>
-<div className="badge-hours">Hours Contributed: {badge.hoursContributed}</div>
-</div>
-))}
-</div>
-)}
-</div>
-);
+  );
 };
-
-export default Badges;
+  
+  export default Badges;
