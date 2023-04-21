@@ -1,41 +1,52 @@
-UNCollaboration Smart Contract
-The UNCollaboration smart contract is a Solidity-based smart contract designed to facilitate collaboration between volunteers, project managers, and donors. The contract allows volunteers to complete tasks and earn UNCollaboration coins (UNC), which they can use to propose and fund new projects. Project managers can validate and manage proposed projects, and donors can donate UNC to support new projects.
+UniCoins V3 is a decentralized collaboration platform for volunteers and non-profit organizations built on the Ethereum blockchain. 
+It enables volunteers to earn rewards by completing tasks and contributing to projects, and allows organizations to propose and manage projects.
+ 
+Features:
 
-Features
-The UNCollaboration smart contract includes the following features:
+Decentralized collaboration platform
+Task management for volunteers
+Project management for organizations
+Rewards system for volunteers
+Staking and unstaking functionality
+Connects with MetaMask wallet
+Login and logout functionality with Magic SDK
+POAP Badges integration
+MoonPay integration for purchasing crypto
 
-Task management: Project managers can add new tasks to the contract, and volunteers can complete tasks and earn UNC as a reward.
-Volunteer management: Project managers can add new volunteers to the contract.
-Project manager management: Existing project managers can add new project managers to the contract.
-Token minting: Project managers can mint new UNC tokens and allocate them to specific addresses.
-Staking: Volunteers can stake UNC tokens to propose new projects, and project managers can validate and manage proposed projects.
-Donations: Donors can donate UNC to support new projects.
-Time stable coin: The contract includes a data strategy to optimize UNC circulation and ensure the time value of UNC is maintained, making it similar to a time-stable coin.
-Requirements:
-The following tools and libraries are required to use the UNCollaboration smart contract:
+Installation:
 
-Solidity compiler version 0.8.0
-OpenZeppelin library version 4.4.0
-Deployment
-To deploy the UNCollaboration smart contract, follow these steps:
+Clone this repository:
+git clone https://github.com/your-repo/UniCoinsV3.git
 
-Install Solidity and OpenZeppelin on your local machine.
-Copy the contents of the UNCollaboration.sol file into a new Solidity file.
-Compile the Solidity file using the Solidity compiler.
-Deploy the compiled smart contract to the Ethereum blockchain.
-Usage
-Once the smart contract is deployed, the following functions can be called to interact with the contract:
+Navigate to the project directory and install dependencies:
+cd UniCoinsV3/my-app
+npm install
 
-addTask: Add a new task to the contract.
-completeTask: Mark a task as completed and reward the volunteer who completed it with UNC.
-addVolunteer: Add a new volunteer to the contract.
-addProjectManager: Add a new project manager to the contract.
-mintTokens: Mint new UNC tokens and allocate them to specific addresses.
-proposeProject: Propose a new project by staking UNC tokens.
-validateProposal: Validate or reject a proposed project.
-updateProjectDeliverables: Update the deliverables of a proposed project.
-setOrganizationAccount: Set the address of the organization account.
-donate: Donate UNC to support new projects.
-mintForProject: Mint UNC tokens to fund a proposed project.
-License
-The UNCollaboration smart contract is licensed under the UNLICENSED license.
+Start the development server:
+npm start
+
+Components
+AppNavbar: Navigation bar for the app
+Tasks: Displays the list of tasks available for volunteers
+Task: Displays the details of a single task
+Projects: Displays the list of projects available for organizations
+Staking: Allows users to stake and unstake tokens
+ProposeProject: Allows organizations to propose new projects
+Home: Home page of the app
+Dashboard: Displays volunteer KPIs (Key Performance Indicators)
+Badges: Displays POAP badges for the volunteer
+MoonPay: Integrates MoonPay for purchasing cryptocurrencies
+Contexts
+Web3Context: Provides web3 instance, contract instance, and functions for interacting with the smart contract
+ProjectContext: Provides project management-related functionality
+
+Smart Contract
+UNCollaboration.sol: Smart contract for managing tasks, projects, and rewards
+
+Dependencies
+React
+web3
+magic-sdk
+react-router-dom
+@poap-xyz/poap-badge
+Note: This project uses MetaMask for wallet connectivity. Please ensure MetaMask is installed in your browser.
