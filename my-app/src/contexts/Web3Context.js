@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import Web3 from 'web3';
-import UNCollaborationArtifact from '/Users/josephdelgiorgio/UniCoinsV3/my-app/src/abis/UNCollaboration.json';
+import '/Users/josephdelgiorgio/UniCoinsV3/my-app/src/contexts/Web3Context.js'
+import UNCollaborationArtifact from '../abis/UNCollaboration.json';
 
 // Create Web3 context
 export const Web3Context = createContext();
@@ -18,7 +19,6 @@ export function Web3Provider({ children }) {
   const [volunteerKPIs, setVolunteerKPIs] = useState({});
   const [loading, setLoading] = useState(true); // Add loading state
 
-  // Initialize Web3
   useEffect(() => {
     const initWeb3 = async () => {
       if (window.ethereum) {
@@ -51,8 +51,8 @@ export function Web3Provider({ children }) {
       setLoading(true); // Set loading state to true
 
       try {
-        // Replace with the appropriate contract methods and parameters
-        const completedTasks = await contract.methods.getCompletedTasks().call({ from: account });
+        const address = '0x98a0Fa7f492282aa06EC2714F388f53d15266fF3';
+        const completedTasks = await contract.methods.getCompletedTasks(address).call({ from: account });
         const onTimeCompletionRate = await contract.methods.getOnTimeCompletionRate().call({ from: account });
         const managerRatings = await contract.methods.getManagerRatings().call({ from: account });
         const otherMetrics = await contract.methods.getOtherMetrics().call({ from: account });
@@ -94,38 +94,37 @@ export function Web3Provider({ children }) {
   const networkId = await web3.eth.net.getId();
   const networkData = UNCollaborationArtifact.networks[networkId];
   if (!networkData) {
-  alert('UNCollaboration contract not deployed to detected network.');
-  return;
+    alert('UNCollaboration contract not deployed to detected network.');
+    return;
   }
   const uncollaborationContract = new web3.eth.Contract(
-  UNCollaborationArtifact.abi,
-  networkData.address
+    UNCollaborationArtifact.abi,
+    networkData.address
   );
   setContract(uncollaborationContract);
-  };
-  initContract();
-  }, [web3]);
-  
-  useEffect(() => {
-  if (web3 && account && contract) {
+};
+initContract();
+}, [web3]);
+
+useEffect(() => {
+if (web3 && account && contract) {
   setLoading(false);
-  } else {
+} else {
   setLoading(true);
-  }
-  }, [web3, account, contract]);
-  
-  return (
+}
+}, [web3, account, contract]);
+
+return (
   <Web3Context.Provider
-  value={{
-  web3,
-  account,
-  contract,
-  volunteerKPIs,
-  loading,
-  }}
+    value={{
+      web3,
+      account,
+      contract,
+      volunteerKPIs,
+      loading,
+    }}
   >
-  {children}
+    {children}
   </Web3Context.Provider>
-  );
-  }
-    
+);
+}
