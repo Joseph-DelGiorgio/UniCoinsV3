@@ -84,6 +84,7 @@ const Badges = ({ provider, volunteerAddress }) => {
           value={searchTerm}
           onChange={handleSearchTermChange}
         />
+         <button type="submit" onClick={handleSearchTermChange}>Search</button> {/* Add this line */}
       </div>
       {searchedBadges.length === 0 ? (
         <p>No badges found</p>
@@ -117,3 +118,4 @@ const Badges = ({ provider, volunteerAddress }) => {
 };
   
   export default Badges;
+  
