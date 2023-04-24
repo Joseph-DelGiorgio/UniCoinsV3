@@ -1,5 +1,3 @@
-//This is the new version of the Unicoins smart contract, without the Badge (Erc721) Functionality, as we are using POAPs instead.
-
 // SPDX-License-Identifier: UNLICENSED
 pragma solidity ^0.8.0;
 
@@ -18,6 +16,8 @@ contract UNCollaboration is ERC20, Ownable, ReentrancyGuard {
         bool completed;
         address volunteer;
         bool authorized;
+        uint256 deadline; // Add deadline field
+        uint256 completionTime; // Add completion time field
     }
 
     struct UNicoinBalance {
@@ -88,21 +88,23 @@ contract UNCollaboration is ERC20, Ownable, ReentrancyGuard {
     }
 
     function completeTask(uint256 taskIndex) public {
-        CollaborationTask storage task= tasks[taskIndex];
-        require(task.volunteer == msg.sender, "Only the assigned volunteer can complete the task");
-        require(task.completed == false, "Task is already completed");
-        task.completed = true;
-        UNicoinBalance storage volunteerBalance = balances[msg.sender];
-        volunteerBalance.balance = volunteerBalance.balance.add(task.reward);
-        emit TaskCompleted(taskIndex, msg.sender, task.reward);
+    CollaborationTask storage task= tasks[taskIndex];
+    require(task.volunteer == msg.sender, "Only the assigned volunteer can complete the task");
+    require(task.completed == false, "Task is already completed");
+    task.completed = true;
+    task.completionTime = block.timestamp; // Record completion time
+    UNicoinBalance storage volunteerBalance = balances[msg.sender];
+    volunteerBalance.balance = volunteerBalance.balance.add(task.reward);
+    emit TaskCompleted(taskIndex, msg.sender, task.reward);
     }
+
     function addVolunteer(address volunteer) public {
     require(projectManagers[msg.sender], "Only project managers can add volunteers");
     volunteers[volunteer] = true;
     balances[volunteer].balance = 0;
     balances[volunteer].hoursContributed = 0;
     emit VolunteerAdded(volunteer);
-}
+    }
 
 function addProjectManager(address projectManager) public {
     require(projectManagers[msg.sender], "Only existing project managers can add new project managers");
@@ -236,5 +238,28 @@ function validateProposal(uint256 proposalId, bool isValid) public {
     function stakingPositionOf(address staker, uint256 positionIndex) public view returns (uint256) {
         return stakingPositions[staker][positionIndex].amount;
     }
+
+    function getOnTimeCompletionRate(address volunteer) public view returns (uint256) {
+    uint256 completedTaskCount = 0;
+    uint256 onTimeTaskCount = 0;
+
+    for (uint256 i = 0; i < tasks.length; i++) {
+        CollaborationTask storage task = tasks[i];
+        if (task.volunteer == volunteer && task.completed) {
+            completedTaskCount++;
+
+            if (task.completionTime <= task.deadline) {
+                onTimeTaskCount++;
+            }
+        }
+    }
+
+    if (completedTaskCount == 0) {
+        return 0;
+    }
+
+    return onTimeTaskCount.mul(100).div(completedTaskCount);
+}
+
 
 }
