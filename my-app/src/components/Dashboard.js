@@ -6,6 +6,8 @@ import SearchBar from "./SearchBar";
 import ProjectCharts from "./ProjectCharts";
 import ProjectContext from "./ProjectContext";
 import { Web3Context } from "../contexts/Web3Context"; // Corrected import statement
+import uniCoinWhite from "/Users/josephdelgiorgio/UniCoinsV3/my-app/src/assets/UniCoinWhite.jpeg";
+
 
 const Dashboard = () => {
   const { projects } = useContext(ProjectContext);
@@ -46,8 +48,11 @@ const Dashboard = () => {
   const paginate = pageNumber => setCurrentPage(pageNumber);
 
   return (
-    <div className="dashboard">
-      {!loading ? (
+    <>
+      <img className="top-left-image" src={uniCoinWhite} alt="Top Left UniCoin" />
+      <img className="top-right-image" src={uniCoinWhite} alt="Top Right UniCoin" />
+      <div className="dashboard">
+        {!loading ? (
         <div className="volunteer-kpis">
           <h2>Volunteer KPIs</h2>
           <p>Completed Tasks: {volunteerKPIs.completedTasks}</p>
@@ -82,8 +87,8 @@ const Dashboard = () => {
         paginate={paginate}
       />
     </div>
+    </>
   );
 };
 
 export default Dashboard;
-
