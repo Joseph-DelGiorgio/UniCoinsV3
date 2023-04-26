@@ -91,3 +91,30 @@
 .project-item p {
   margin-bottom: 0.25rem;
 }
+.container {
+  position: relative;
+}
+
+.main-content {
+  margin: 0 auto;
+  width: 100%;
+  max-width: 800px; /* Adjust this value according to your layout requirements */
+}
+
+.left-image {
+  position: fixed;
+  left: 0;
+  top: 50%;
+  max-width: 20%; /* Adjust this value to resize the image */
+  height: auto;
+  transform: translateY(-50%);
+}
+
+.right-image {
+  position: fixed;
+  right: 0;
+  top: 50%;
+  max-width: 20%; /* Adjust this value to resize the image */
+  height: auto;
+  transform: translateY(-50%);
+}
