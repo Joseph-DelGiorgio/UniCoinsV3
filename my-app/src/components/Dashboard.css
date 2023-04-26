@@ -117,3 +117,23 @@
   border: 1px solid #dee2e6;
   border-radius: 5px;
 }
+
+/* ... Other CSS styles ... */
+
+.top-left-image {
+  position: fixed;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 100px; /* Adjust the width as needed */
+  z-index: -1;
+}
+
+.top-right-image {
+  position: fixed;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 100px; /* Adjust the width as needed */
+  z-index: -1;
+}
