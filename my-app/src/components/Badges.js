@@ -67,9 +67,47 @@ const Badges = ({ provider, volunteerAddress }) => {
     return badge.badgeDescription.toLowerCase().includes(searchTerm.toLowerCase());
   });
 
-  return (
+    return (
     <div className="container">
-      {/* ... (rest of the JSX code remains unchanged) */}
+      <h2>Badges</h2>
+      <div className="filter-container">
+        <label htmlFor="filter">Filter by: </label>
+        <select id="filter" value={filter} onChange={handleFilterChange}>
+          <option value="all">All</option>
+          <option value="bronze">Bronze</option>
+          <option value="silver">Silver</option>
+          <option value="gold">Gold</option>
+          <option value="humanitarian">Humanitarian</option>
+          <option value="environmental">Environmental</option>
+          <option value="educational">Educational</option>
+        </select>
+      </div>
+      <div className="search-container">
+        <input
+          type="text"
+          placeholder="Search badges..."
+          value={searchTerm}
+          onChange={handleSearchTermChange}
+        />
+         <button type="submit" onClick={handleSearchTermChange}>Search</button> {/* Add this line */}
+      </div>
+      {searchedBadges.length === 0 ? (
+        <p>No badges found</p>
+      ) : (
+        <div className="badge-container">
+          {searchedBadges.map((badge, index) => (
+            <div key={index} className={`badge-card ${mapBadgeToColor(badge.hoursContributed)}`}>
+              <img src="https://via.placeholder.com/100" alt="Badge" />
+              <div className="badge-tooltip">
+                Additional information about the {badge.badgeDescription} badge
+              </div>
+              <div className="badge-name">{badge.badgeDescription}</div>
+              <div className="badge-description">Description: {badge.badgeDescription}</div>
+              <div className="badge-hours">Hours Contributed: {badge.hoursContributed}</div>
+            </div>
+          ))}
+        </div>
+      )}
 
       <div className="poap-badge-container">
         {poapBadges.map((badge, index) => (
