@@ -16,7 +16,7 @@ MoonPay integration for purchasing crypto
 Installation:
 
 Clone this repository:
-git clone https://github.com/your-repo/UniCoinsV3.git
+git clone
 
 Navigate to the project directory and install dependencies:
 cd UniCoinsV3/my-app
