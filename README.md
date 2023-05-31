@@ -4,14 +4,14 @@ It enables volunteers to earn rewards by completing tasks and contributing to pr
  
 Features:
 
-Decentralized collaboration platform
-Task management for volunteers
-Project management for organizations
-Rewards system for volunteers
-Staking and unstaking functionality
-Connects with MetaMask wallet
-Login and logout functionality with Magic SDK
-POAP Badges integration
+Decentralized collaboration platform, 
+Task management for volunteers, 
+Project management for organizations, 
+Rewards system for volunteers, 
+Staking and unstaking functionality, 
+Connects with MetaMask wallet, 
+Login and logout functionality with Magic SDK, 
+POAP Badges integration, 
 MoonPay integration for purchasing crypto
 
 Installation:
