@@ -25,6 +25,7 @@ cd UniCoinsV3/my-app
 npm install
 
 Start the development server:
+cd my-app
 npm start
 
 Components:
