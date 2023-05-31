@@ -3,8 +3,7 @@ UniCoins V3 is a decentralized collaboration platform for volunteers and non-pro
 It enables volunteers to earn rewards by completing tasks and contributing to projects, and allows organizations to propose and manage projects.
  
 Features:
-
-Decentralized collaboration platform, 
+ 
 Task management for volunteers, 
 Project management for organizations, 
 Rewards system for volunteers, 
